@@ -1,6 +1,8 @@
 class ConversationsController < ApplicationController
+  before_action :authenticate_user
+
   def index
-    conversations = Conversation.all
+    conversations = Conversation.where(current_user.id == :user.id)
     render json: conversations
   end
 

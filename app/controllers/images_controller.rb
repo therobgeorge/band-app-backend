@@ -1,8 +1,8 @@
 class ImagesController < ApplicationController
-  # before_action :authenticate_user
+  before_action :authenticate_user
   def create
     image = Image.new(
-      user_id: params[:user_id],
+      user_id: current_user.id,
       url: params[:url]
     )
     if image.save
@@ -14,9 +14,10 @@ class ImagesController < ApplicationController
 
   def destroy
     image = Image.find(params[:id])
-    image.destroy
-    render json: {message: "Image Destroyed"}
-    
+    if current_user.id == image.user_id
+      image.destroy
+      render json: {message: "Image Destroyed"}
+    end
   end
 end
 

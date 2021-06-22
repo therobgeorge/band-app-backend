@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   
-  
+  before_action :authenticate_user, except: [:create, :show]
   
   def create
     user = User.new(
@@ -29,12 +29,12 @@ class UsersController < ApplicationController
 
   def update
     user = User.find(params[:id])
-    # if current_user.id == user.id
+    if current_user.id == user.id
       user.name = params[:name] || user.name
       user.user_name = params[:user_name] || user.user_name
       user.email = params[:email] || user.email,
-      # user.password = params[:password] || user.password
-      # user.password_confirmation = params[:password_confirmation] || user.password_confirmation
+      user.password = params[:password] || user.password
+      user.password_confirmation = params[:password_confirmation] || user.password_confirmation
       user.address = params[:address] || user.address
       user.accomidation_description = params[:accomidation_description] || user.accomidation_description
       user.band = params[:band] || user.band
@@ -45,14 +45,19 @@ class UsersController < ApplicationController
       else
         render json: {errors: user.errors.full_messages, status: :unprocessable_entity}
       end
-    # end
+    else 
+      render json: {message: "not logged in"}
+    end
   end
 
   def destroy
     user = User.find(params[:id])
-    user.destroy
-    render json: {message: "user destroyed"}
-    
+    if current_user.id == user.id
+      user.destroy
+      render json: {message: "user destroyed"}
+    else
+      render json: {message: "not logged in"}
+    end
   end
 
 
