@@ -1,7 +1,9 @@
 class MessagesController < ApplicationController
+  before_action :authenticate_user
+  
   def create
     message = Message.new(
-      user_id: params[:user_id],
+      user_id: current_user.id,
       body: params[:body], 
       conversation_id: params[:conversation_id]
     )

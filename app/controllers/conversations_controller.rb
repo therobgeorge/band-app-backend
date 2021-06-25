@@ -7,20 +7,15 @@ class ConversationsController < ApplicationController
   end
 
   def create
-    if Conversation.between(params[:band_id], params[:host_id]).present?
-      conversation = Conversation.between(params[:band_id], params[:host_id]).first
+    conversation = Conversation.new(
+      band_id: params[:band_id],
+      host_id: current_user.id
+    )
+    if conversation.save
+      render json: {message: "Conversation created"}
     else
-      conversation = Conversation.new(
-        band_id: params[:band_id],
-        host_id: params[:host_id]
-      )
-      if conversation.save
-        render json: {message: "Conversation created"}
-      else
-        render json: {erros: conversation.errors.full_messages}, status: :unprocessable_entity
-      end
-    end
-    
+      render json: {erros: conversation.errors.full_messages}, status: :unprocessable_entity
+    end    
   end
 
   def show
