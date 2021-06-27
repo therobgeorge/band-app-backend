@@ -16,7 +16,7 @@ class UsersController < ApplicationController
       bio: params[:bio]
     )
     if user.save
-      render json: { message: "User created successfully" }, status: :created
+      render json: user , status: :created
     else
       render json: { errors: user.errors.full_messages }, status: :bad_request
     end
@@ -30,11 +30,13 @@ class UsersController < ApplicationController
   def update
     user = User.find(params[:id])
     if current_user.id == user.id
+      if params[:password] && params[:password_confirmation]
+        user.password = params[:password]
+        user.password_confirmation = params[:password_confirmation]
+      end
       user.name = params[:name] || user.name
       user.user_name = params[:user_name] || user.user_name
-      user.email = params[:email] || user.email,
-      user.password = params[:password] || user.password
-      user.password_confirmation = params[:password_confirmation] || user.password_confirmation
+      user.email = params[:email] || user.email
       user.address = params[:address] || user.address
       user.accomidation_description = params[:accomidation_description] || user.accomidation_description
       user.band = params[:band] || user.band

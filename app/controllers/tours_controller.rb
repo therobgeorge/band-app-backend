@@ -15,12 +15,12 @@ class ToursController < ApplicationController
         comment: params[:comment]
       )
       if tour.save
-        render json: {message: "Tour Date Created"}
+        render json: tour
       else
         render json: {errors: tour.errors.full_messages}, status: :unprocessable_entity
       end
     else
-      render json: {message: "not a band"}
+      render json: {message: "not a band"}, status: :unauthorized
     end
   end
 
@@ -32,7 +32,7 @@ class ToursController < ApplicationController
       tour.comment = params[:comment] || tour.comment,
     
       if tour.save
-        render json: {message: "Tour date updated."}
+        render json: tour
       else
         render json: {errors: tour.errors.full_messages}, status: :unprocessable_entity
       end  

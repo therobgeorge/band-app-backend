@@ -12,7 +12,7 @@ class ConversationsController < ApplicationController
       host_id: current_user.id
     )
     if conversation.save
-      render json: {message: "Conversation created"}
+      render json: conversation
     else
       render json: {erros: conversation.errors.full_messages}, status: :unprocessable_entity
     end    
