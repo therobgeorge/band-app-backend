@@ -10,7 +10,7 @@ class UsersController < ApplicationController
       password: params[:password],
       password_confirmation: params[:password_confirmation],
       address: params[:address],
-      accomidation_description: params[:accomidation_description],
+      accomodation_description: params[:accomodation_description],
       band: params[:band],
       profile_picture: params[:profile_picture],
       bio: params[:bio]
@@ -38,7 +38,7 @@ class UsersController < ApplicationController
       user.user_name = params[:user_name] || user.user_name
       user.email = params[:email] || user.email
       user.address = params[:address] || user.address
-      user.accomidation_description = params[:accomidation_description] || user.accomidation_description
+      user.accomodation_description = params[:accomodation_description] || user.accomodation_description
       user.band = params[:band] || user.band
       user.profile_picture = params[:profile_picture] || user.profile_picture
       user.bio = params[:bio] || user.bio

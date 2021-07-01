@@ -12,7 +12,7 @@ class User < ApplicationRecord
   validates :user_name, presence: true
   validates :email, presence: true
   validates :address, presence: true
-  validates :accomidation_description, presence: true
+  validates :accomodation_description, presence: true
   validates :profile_picture, presence: true
   validates :bio, presence: true
 
