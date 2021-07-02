@@ -21,7 +21,7 @@ class ConversationsController < ApplicationController
   def show
     conversation = Conversation.find(params[:id])
     if current_user.id == conversation.band_id || current_user.id == conversation.host_id
-      render json: conversation
+      render json: conversation, include: "messages.user"
     end
     
   end
