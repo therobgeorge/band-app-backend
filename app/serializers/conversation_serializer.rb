@@ -3,4 +3,5 @@ class ConversationSerializer < ActiveModel::Serializer
   
   belongs_to :band
   belongs_to :host
+  has_many :messages
 end
