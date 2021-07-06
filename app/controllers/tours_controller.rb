@@ -15,6 +15,7 @@ class ToursController < ApplicationController
         location: params[:location],
         comment: params[:comment]
       )
+      tour.geocode
       if tour.save
         render json: tour
       else

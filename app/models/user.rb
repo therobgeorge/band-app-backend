@@ -14,4 +14,8 @@ class User < ApplicationRecord
   validates :profile_picture, presence: true
   validates :bio, presence: true
 
+  geocoded_by :address
+
+  after_validation :geocode
+
 end

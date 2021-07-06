@@ -15,6 +15,7 @@ class UsersController < ApplicationController
       profile_picture: params[:profile_picture],
       bio: params[:bio]
     )
+    user.geocode
     if user.save
       render json: user , status: :created
     else
