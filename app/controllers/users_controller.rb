@@ -57,6 +57,7 @@ class UsersController < ApplicationController
     user = User.find(params[:id])
     if current_user.id == user.id
       user.destroy
+      user.conversations.destroy_all
       render json: {message: "user destroyed"}
     else
       render json: {message: "not logged in"}

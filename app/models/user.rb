@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  has_many :tours
-  has_many :images
+  has_many :tours, dependent: :destroy
+  has_many :images, dependent: :destroy
   
   def conversations
     Conversation.where("band_id = ? OR host_id = ?", id, id)
