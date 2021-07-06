@@ -3,6 +3,7 @@ class ToursController < ApplicationController
 
   def index
     tours = Tour.all
+    tours = tours.order("date ASC")
     render json: tours
   end
 
