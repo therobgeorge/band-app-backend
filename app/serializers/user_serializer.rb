@@ -5,4 +5,5 @@ class UserSerializer < ActiveModel::Serializer
     object.tours.order(:date)
   end
   has_many :images
+  has_many :conversations
 end
