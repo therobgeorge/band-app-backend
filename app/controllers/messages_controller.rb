@@ -8,7 +8,7 @@ class MessagesController < ApplicationController
       conversation_id: params[:conversation_id]
     )
     if message.save
-      ActionCable.server.broadcast "messages_channel", message 
+      ActionCable.server.broadcast "messages_channel", {id: message.id, body: message.body, user: message.user} 
     else
       render json: {errors: message.errors.full_messages}, status: :unprocessable_entity
     end
