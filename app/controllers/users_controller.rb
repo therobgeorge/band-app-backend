@@ -11,7 +11,7 @@ class UsersController < ApplicationController
       password_confirmation: params[:password_confirmation],
       address: params[:address],
       accommodation_description: params[:accommodation_description],
-      band: params[:band],
+      band: params[:band] || false,
       profile_picture: params[:profile_picture],
       bio: params[:bio]
     )
