@@ -42,3 +42,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'active_model_serializers'
 
 gem 'geocoder', '~> 1.6', '>= 1.6.7'
+gem 'cloudinary'

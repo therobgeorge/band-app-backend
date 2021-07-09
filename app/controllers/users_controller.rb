@@ -3,6 +3,8 @@ class UsersController < ApplicationController
   before_action :authenticate_user, except: [:create, :show]
   
   def create
+    response = Cloudinary::Uploader.upload(params[:profile_picture])
+    cloudinary_url = response["secure_url"]
     user = User.new(
       name: params[:name],
       user_name: params[:user_name],
@@ -12,7 +14,7 @@ class UsersController < ApplicationController
       address: params[:address],
       accommodation_description: params[:accommodation_description],
       band: params[:band] || false,
-      profile_picture: params[:profile_picture],
+      profile_picture: cloudinary_url,
       bio: params[:bio]
     )
     user.geocode
@@ -29,6 +31,10 @@ class UsersController < ApplicationController
   end
 
   def update
+    if params[:profile_picture]
+      response = Cloudinary::Uploader.upload(params[:profile_picture])
+      cloudinary_url = response["secure_url"]
+    end
     user = User.find(params[:id])
     if current_user.id == user.id
       if params[:password] && params[:password_confirmation]
@@ -41,7 +47,7 @@ class UsersController < ApplicationController
       user.address = params[:address] || user.address
       user.accommodation_description = params[:accommodation_description] || user.accommodation_description
       user.band = params[:band] || user.band
-      user.profile_picture = params[:profile_picture] || user.profile_picture
+      user.profile_picture = cloudinary_url || user.profile_picture
       user.bio = params[:bio] || user.bio
       if user.save
         render json: user
