@@ -7,6 +7,7 @@ class ConversationSerializer < ActiveModel::Serializer
 
 
   def last_message
-    object.messages.last.created_at
+    object.messages.last
   end
+
 end
