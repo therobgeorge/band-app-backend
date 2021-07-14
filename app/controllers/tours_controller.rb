@@ -28,9 +28,9 @@ class ToursController < ApplicationController
   def update
     tour = Tour.find(params[:id])
     if current_user.id == tour.user_id
-      tour.date = params[:date] || tour.date,
-      tour.location = params[:location] || tour.location, 
-      tour.comment = params[:comment] || tour.comment,
+      tour.date = params[:date] || tour.date
+      tour.location = params[:location] || tour.location
+      tour.comment = params[:comment] || tour.comment
     
       if tour.save
         render json: tour
